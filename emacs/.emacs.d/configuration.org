@@ -92,7 +92,7 @@ Use =evil=.
 #+BEGIN_SRC emacs-lisp
   (use-package evil
     :config
-    (evil-mode 1))
+    (evil-mode 0))
 #+END_SRC
 
 Enable =surround= everywhere.
@@ -242,7 +242,7 @@ just a hint of transparency looks lovely and isn't distracting or hard to read.
     "Apply the `solarized-light' theme and make frames just slightly transparent."
     (interactive)
     (load-theme 'solarized-light t)
-    (transparency 70))
+    (transparency 100))
 #+END_SRC
 
 If this code is being evaluated by =emacs --daemon=, ensure that each subsequent
@@ -319,7 +319,7 @@ Note that this overrides the default font-related keybindings from
 
 #+BEGIN_SRC emacs-lisp
   (setq hrs/default-font "Inconsolata")
-  (setq hrs/default-font-size 8)
+  (setq hrs/default-font-size 16)
   (setq hrs/current-font-size hrs/default-font-size)
 
   (setq hrs/font-change-increment 1.1)
@@ -2230,4 +2230,22 @@ Remap when working in terminal Emacs.
 
 #+BEGIN_SRC emacs-lisp
   (load-file "~/.emacs-private.el")
+#+END_SRC
+
+* CCLS
+#+BEGIN_SRC emacs-lisp
+(use-package lsp-mode :commands lsp)
+(use-package lsp-ui :commands lsp-ui-mode)
+(use-package company-lsp :commands company-lsp)
+
+(use-package ccls
+  :hook ((c-mode c++-mode objc-mode) .
+         (lambda () (require 'ccls) (lsp))))
+
+#+END_SRC
+
+* org ODT export
+#+BEGIN_SRC emacs-lisp
+(require 'ox-odt)
+
 #+END_SRC

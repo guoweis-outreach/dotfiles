@@ -7,3 +7,12 @@ function countpage() {
 function path() {
   echo $PATH | tr ':' '\n'
 }
+
+function bpj() {
+	cd ~/code/pjproject
+	if ["%1" == "full"]; then
+		./configure
+		make dep
+	fi
+	make
+}

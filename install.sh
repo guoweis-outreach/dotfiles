@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Install all the necessary Debian packages, especially `stow`.
-./install_debian_packages.sh
+# ./install_debian_packages.sh
 
 stow bash
 stow emacs
@@ -19,4 +19,4 @@ ln -s ~/.bashrc ~/.bash_profile
 
 # Many of the tools in this repo are written in Ruby, and some depend on
 # external libraries. This installs those.
-./install_ruby_gems.sh
+# ./install_ruby_gems.sh

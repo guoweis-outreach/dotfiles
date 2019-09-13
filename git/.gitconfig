@@ -24,7 +24,7 @@
   match = bold red
   linenumber = bold blue
 [commit]
-  gpgsign = true
+	gpgsign = false
   template = ~/.gitmessage
 [core]
   excludesfile = ~/.gitignore
@@ -45,3 +45,5 @@
   signingkey = 25AE721B
 [github]
 	user = hrs
+[gpg]
+	program = gpg

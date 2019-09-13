@@ -1,8 +1,11 @@
 # -*- mode: sh -*-
 
+alias gpj="cd ~/code/pjproject/pjsip-apps/bin"
+alias src="source ~/.bashrc"
+
 alias dc="docker-compose"
 alias gg="git grep -n"
-alias git="hub"
+# alias git="hub"
 alias gpg="gpg2"
 alias less="less -R" # display colors correctly
 alias sbcl="rlwrap sbcl"
@@ -11,7 +14,7 @@ alias lispi="sbcl -noinform --load"
 alias la="ls -la"
 alias ll="ls -l"
 alias ln="ln -v"
-alias ls="ls --color -h"
+alias ls="ls -h"
 alias mkdir="mkdir -p"
 alias mutt="cd $HOME/downloads; /usr/bin/mutt; cd - > /dev/null"
 alias myip="ip address | grep inet.*wlan0 | cut -d' ' -f6 | sed \"s/\/24//g\""
