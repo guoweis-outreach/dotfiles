@@ -1,6 +1,6 @@
 #+TITLE: Emacs Configuration
-#+AUTHOR: Harry R. Schwartz
-#+EMAIL: hello@harryrschwartz.com
+#+AUTHOR: Guowei Shieh
+#+EMAIL: guoweis@gmail.com
 #+OPTIONS: toc:nil num:nil
 
 * Configure =use-package=
@@ -44,8 +44,8 @@ Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for so
 ** Who am I? Where am I?
 
 #+BEGIN_SRC emacs-lisp
-  (setq user-full-name "Harry R. Schwartz"
-        user-mail-address "hello@harryrschwartz.com"
+  (setq user-full-name "Guowei Shieh"
+        user-mail-address "guoweis@gmail.com"
         calendar-latitude 40.00
         calendar-longitude -105.16
         calendar-location-name "Boulder, CO")
@@ -1354,14 +1354,6 @@ Include the =minted= package in all of my LaTeX exports.
   (setq org-latex-listings 'minted)
 #+END_SRC
 
-**** Exporting projects
-
-I have a few Org project definitions that I maintain in a separate elisp file.
-
-#+BEGIN_SRC emacs-lisp
-  (load-file ".emacs.d/projects.el")
-#+END_SRC
-
 ** TeX configuration
 
 I rarely write LaTeX directly any more, but I often export through it with
@@ -1541,6 +1533,11 @@ Open the checklist and my TODO list side-by-side:
 
 * Email with =mu4e=
 
+Add mu4e to path
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu/mu4e")
+#+END_SRC
+
 Use the =evil= bindings for navigation. They're very similar to the =mutt=
 bindings, which matches my muscle memory nicely. =)
 
@@ -1572,7 +1569,7 @@ My full name is defined earlier in this configuration file.
             :match-func (lambda (msg)
                           (when msg
                             (string-prefix-p "/personal" (mu4e-message-field msg :maildir))))
-            :vars '((user-mail-address . "hello@harryrschwartz.com")
+            :vars '((user-mail-address . "guoweis@gmail.com")
                     (mu4e-trash-folder . "/personal/archive")
                     (mu4e-refile-folder . "/personal/archive")
                     (mu4e-sent-folder . "/personal/sent")
@@ -2217,7 +2214,6 @@ Enable [[https://github.com/hrs/engine-mode][engine-mode]] and define a few usef
 Just a few handy functions.
 
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-w") 'backward-kill-word)
   (global-set-key (kbd "M-o") 'other-window)
 #+END_SRC
 
@@ -2229,7 +2225,7 @@ Remap when working in terminal Emacs.
 * Extra
 
 #+BEGIN_SRC emacs-lisp
-  (load-file "~/.emacs-private.el")
+  (load-file "~/.dotfiles/.emacs-private.el")
 #+END_SRC
 
 * CCLS

@@ -7,11 +7,12 @@ SyncState *
 ########################################
 
 IMAPAccount personal
-Host mail.messagingengine.com
-User hrs@fastmail.fm
-PassCmd "~/.bin/netrc password mail.messagingengine.com"
+Host imap.gmail.com
+User guoweis@gmail.com
+PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/.authinfo.gpg | awk '/machine imap.gmail.com login guoweis@gmail.com/ {print $NF}'"
 SSLType IMAPS
 CertificateFile ~/.mutt/ca-bundle.crt
+AuthMechs LOGIN
 
 IMAPStore personal-remote
 Account personal

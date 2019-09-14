@@ -3,7 +3,7 @@ source $HOME/.bin/git-completion.sh
 export ALTERNATE_EDITOR=""
 export BROWSER="firefox"
 export EDITOR="$HOME/.bin/em"
-export EMAIL="hello@harryrschwartz.com"
+export EMAIL="guoweis@gmail.com"
 export GOPATH="$HOME/code/go"
 export GPG_TTY=$(tty)
 export HISTFILESIZE=20000
@@ -11,7 +11,7 @@ export HOMEBREW_NO_ANALYTICS=1
 export LANG="en_US"
 export LC_ALL="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
-export NAME="Harry R. Schwartz"
+export NAME="Guowei Shieh"
 export PROMPT_DIRTRIM=3
 
 source /etc/bash_completion.d/password-store

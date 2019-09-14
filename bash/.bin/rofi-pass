@@ -22,7 +22,7 @@ password_length='20'
 help_color=""
 clip=primary
 default_user="$(whoami)"
-default_user2="hello@harryrschwartz.com"
+default_user2="guoweis@gmail.com"
 password_length=30
 
 # default shortcuts

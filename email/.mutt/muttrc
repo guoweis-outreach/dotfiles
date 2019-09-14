@@ -120,7 +120,7 @@ source ~/.mutt/pgp.muttrc
 # Account-specific Config ------------------------------
 
 mailboxes +personal/inbox
-alternates hello@harryrschwartz.com
+alternates guoweis@gmail.com
 
 source ~/.mutt/account.personal
 

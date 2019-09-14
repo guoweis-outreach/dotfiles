@@ -6,7 +6,6 @@ alias src="source ~/.bashrc"
 alias dc="docker-compose"
 alias gg="git grep -n"
 # alias git="hub"
-alias gpg="gpg2"
 alias less="less -R" # display colors correctly
 alias sbcl="rlwrap sbcl"
 alias lisp="sbcl --noinform"
@@ -18,8 +17,6 @@ alias ls="ls -h"
 alias mkdir="mkdir -p"
 alias mutt="cd $HOME/downloads; /usr/bin/mutt; cd - > /dev/null"
 alias myip="ip address | grep inet.*wlan0 | cut -d' ' -f6 | sed \"s/\/24//g\""
-alias pbcopy="xsel --clipboard --input"
-alias pbpaste="xsel --clipboard --output"
 alias speedtest='echo "scale=2; `curl  --progress-bar -w "%{speed_download}" http://speedtest.wdc01.softlayer.com/downloads/test10.zip -o /dev/null` / 131072" | bc | xargs -I {} echo {} mbps'
 alias tree="tree -C" # add colors
 alias ut="tar xavf"

@@ -40,8 +40,8 @@
 [rebase]
   autosquash = true
 [user]
-  name = Harry R. Schwartz
-  email = hello@harryrschwartz.com
+  name = Guowei Shieh
+  email = guoweis@gmail.com
   signingkey = 25AE721B
 [github]
 	user = hrs
