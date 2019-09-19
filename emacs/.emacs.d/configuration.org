@@ -639,7 +639,7 @@ Install =go-mode= and related packages:
 Define my =$GOPATH= and tell Emacs where to find the Go binaries.
 
 #+BEGIN_SRC emacs-lisp
-  (setenv "GOPATH" "/home/hrs/code/go")
+  (setenv "GOPATH" "/Users/guoweishieh/code/go")
   (hrs/append-to-path (concat (getenv "GOPATH") "/bin"))
 #+END_SRC
 
@@ -2244,4 +2244,17 @@ Remap when working in terminal Emacs.
 #+BEGIN_SRC emacs-lisp
 (require 'ox-odt)
 
+#+END_SRC
+* MY Go binding
+copied from [[http://tleyden.github.io/blog/2014/05/22/configure-emacs-as-a-go-editor-from-scratch/][this]]
+
+#+BEGIN_SRC emacs-lisp
+(defun my-go-mode-hook ()
+  ; Call Gofmt before saving
+  (add-hook 'before-save-hook 'gofmt-before-save)
+  ; Godef jump key binding
+  (local-set-key (kbd "M-.") 'godef-jump)
+  (local-set-key (kbd "M-*") 'pop-tag-mark)
+  )
+(add-hook 'go-mode-hook 'my-go-mode-hook)
 #+END_SRC

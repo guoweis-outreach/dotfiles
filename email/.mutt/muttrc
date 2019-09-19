@@ -85,7 +85,7 @@ auto_view text/html
 
 # Compose View Options -------------------------------
 
-set realname = "Harry Schwartz"      # who am i?
+set realname = "Guowei Shieh"      # who am i?
 set envelope_from                    # which from?
 set edit_headers                     # show headers when composing
 set fast_reply                       # skip to compose when replying
