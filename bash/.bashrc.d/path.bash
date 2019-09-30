@@ -18,5 +18,6 @@ pathmunge $HOME/.bin after
 pathmunge $HOME/.cabal/bin after
 pathmunge $HOME/.local/bin after
 pathmunge $GOPATH/bin after
+pathmunge /usr/local/share/dotnet
 
 export PATH

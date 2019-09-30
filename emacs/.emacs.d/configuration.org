@@ -1328,9 +1328,9 @@ I'd like to always use Firefox, so:
 
 #+BEGIN_SRC emacs-lisp
   (setq browse-url-browser-function 'browse-url-generic
-        browse-url-generic-program "firefox")
+        browse-url-generic-program "/Users/guoweishieh/.bin/chrome")
 
-  (setenv "BROWSER" "firefox")
+  (setenv "BROWSER" "chrome")
 #+END_SRC
 
 **** Exporting to PDF
@@ -2257,4 +2257,53 @@ copied from [[http://tleyden.github.io/blog/2014/05/22/configure-emacs-as-a-go-e
   (local-set-key (kbd "M-*") 'pop-tag-mark)
   )
 (add-hook 'go-mode-hook 'my-go-mode-hook)
+#+END_SRC
+* JS2 mode
+
+following [[https://emacs.cafe/emacs/javascript/setup/2017/04/23/emacs-setup-javascript.html][this page]]
+#+BEGIN_SRC emacs_lisp
+(require 'js2-mode)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+
+;; Better imenu
+(add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
+
+(require 'js2-refactor)
+(require 'xref-js2)
+
+(add-hook 'js2-mode-hook #'js2-refactor-mode)
+(js2r-add-keybindings-with-prefix "C-c C-r")
+(define-key js2-mode-map (kbd "C-k") #'js2r-kill)
+
+;; js-mode (which js2 is based on) binds "M-." which conflicts with xref, so
+;; unbind it.
+(define-key js-mode-map (kbd "M-.") nil)
+
+(add-hook 'js2-mode-hook (lambda ()
+  (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
+
+(define-key js2-mode-map (kbd "C-k") #'js2r-kill)
+
+(add-hook 'js2-mode-hook 'prettier-js-mode)
+
+
+#+END_SRC
+
+* CSharp Mode
+
+Copied from [[https://joshwolfe.ca/post/emacs-for-csharp/][here]]
+
+#+BEGIN_SRC emacs_lisp
+(use-package omnisharp
+  :after company
+  :config
+  (add-hook 'csharp-mode-hook 'omnisharp-mode)
+  (add-to-list 'company-backends 'company-omnisharp))
+
+(define-key omnisharp-mode-map (kbd ".") 'omnisharp-add-dot-and-auto-complete)
+(define-key omnisharp-mode-map (kbd "<C-SPC>") 'omnisharp-auto-complete)
+(add-hook 'csharp-mode-hook 'flycheck-mode)
+(add-hook 'prog-mode-hook 'flycheck-mode)
+
+
 #+END_SRC
