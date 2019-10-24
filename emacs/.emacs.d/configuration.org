@@ -548,60 +548,6 @@ output.
   (setq compilation-scroll-output t)
 #+END_SRC
 
-** Coq
-
-I use =company-coq-mode=, which really helps make Proof General a more useful IDE.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package company-coq)
-#+END_SRC
-
-I bind the right and left arrow keys to evaluating and retracting the next and
-previous statements. This is more convenient than the default bindings of =C-c
-C-n= and =C-c C-u=.
-
-I also like to disable =abbrev-mode=; it has a ton of abbreviations for Coq, but
-they've always been unpleasant surprises for me.
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'coq-mode-hook
-            (lambda ()
-              (company-coq-mode)
-              (evil-define-key 'normal coq-mode-map (kbd "<down>") 'proof-assert-next-command-interactive)
-              (evil-define-key 'normal coq-mode-map (kbd "<up>") 'proof-undo-last-successful-command)
-              (evil-define-key 'normal coq-mode-map (kbd "<return>") 'company-coq-proof-goto-point)
-              (abbrev-mode 0)))
-#+END_SRC
-
-The default Proof General layout stacks the code, goal, and response buffers on
-top of each other. I like to keep my code on one side and my goal and response
-buffers on the other.
-
-#+BEGIN_SRC emacs-lisp
-  (setq proof-three-window-mode-policy 'hybrid)
-#+END_SRC
-
-Don't move point when asserting and undoing proof commands.
-
-#+BEGIN_SRC emacs-lisp
-  (setq proof-follow-mode 'ignore)
-#+END_SRC
-
-The Proof General splash screen's pretty cute, but I don't need to see it every
-time.
-
-#+BEGIN_SRC emacs-lisp
-  (setq proof-splash-enable nil)
-#+END_SRC
-
-Proof General usually evaluates each comment individually. In literate programs,
-this can result in evaluating a /ton/ of comments. This evaluates a series of
-consecutive comments as a single comment.
-
-#+BEGIN_SRC emacs-lisp
-  (setq proof-script-fly-past-comments t)
-#+END_SRC
-
 ** CSS, Sass, and Less
 
 Indent by 2 spaces.
@@ -639,8 +585,8 @@ Install =go-mode= and related packages:
 Define my =$GOPATH= and tell Emacs where to find the Go binaries.
 
 #+BEGIN_SRC emacs-lisp
-  (setenv "GOPATH" "/Users/guoweishieh/code/go")
-  (hrs/append-to-path (concat (getenv "GOPATH") "/bin"))
+  (setenv "GOPATH" "c:\\Users\\guoweishieh\\go")
+  (hrs/append-to-path (concat (getenv "GOPATH") "\\bin"))
 #+END_SRC
 
 Run =goimports= on every file when saving, which formats the file and
@@ -1531,223 +1477,6 @@ Open the checklist and my TODO list side-by-side:
   (global-set-key (kbd "C-c d") 'hrs/dashboard)
 #+END_SRC
 
-* Email with =mu4e=
-
-Add mu4e to path
-#+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu/mu4e")
-#+END_SRC
-
-Use the =evil= bindings for navigation. They're very similar to the =mutt=
-bindings, which matches my muscle memory nicely. =)
-
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-mu4e)
-  (require 'evil-mu4e)
-#+END_SRC
-
-** Where's my mail? Who am I?
-
-I keep my mail in =~/.mail=. The default maildir would be =~/Maildir=, but I'd
-rather hide it; I don't poke around in there manually very often.
-
-This setting matches the paths in my =mbsync= configuration.
-
-#+BEGIN_SRC emacs-lisp
-  (setq mu4e-maildir "~/.mail")
-#+END_SRC
-
-I only have one context at the moment. If I had another email account, though,
-I'd define it in here with an additional =make-mu4e-context= block.
-
-My full name is defined earlier in this configuration file.
-
-#+BEGIN_SRC emacs-lisp
-  (setq mu4e-contexts
-        `(,(make-mu4e-context
-            :name "personal"
-            :match-func (lambda (msg)
-                          (when msg
-                            (string-prefix-p "/personal" (mu4e-message-field msg :maildir))))
-            :vars '((user-mail-address . "guoweis@gmail.com")
-                    (mu4e-trash-folder . "/personal/archive")
-                    (mu4e-refile-folder . "/personal/archive")
-                    (mu4e-sent-folder . "/personal/sent")
-                    (mu4e-drafts-folder . "/personal/drafts")))))
-#+END_SRC
-
-** Fetching new mail
-
-I fetch my email with =mbsync=. I've also bound "o" to fetch new mail.
-
-#+BEGIN_SRC emacs-lisp
-  (setq mu4e-get-mail-command "killall --quiet mbsync; mbsync inboxes")
-
-  (define-key mu4e-headers-mode-map (kbd "o") 'mu4e-update-mail-and-index)
-#+END_SRC
-
-Rename files when moving them between directories. =mbsync= supposedly prefers
-this; I'm cargo-culting.
-
-#+BEGIN_SRC emacs-lisp
-  (setq mu4e-change-filenames-when-moving t)
-#+END_SRC
-
-Poll the server for new mail every 5 minutes.
-
-#+BEGIN_SRC emacs-lisp
-  (setq mu4e-update-interval 300)
-#+END_SRC
-
-** Viewing mail
-
-I check my email pretty often! Probably more than I should. This binds =C-c m=
-to close any other windows and open my personal inbox.
-
-In practice, I keep an =*mu4e-headers*= buffer in its own frame, full-screen, on
-a dedicated =i3= workspace.
-
-#+BEGIN_SRC emacs-lisp
-  (defun hrs/visit-inbox ()
-    (interactive)
-    (delete-other-windows)
-    (mu4e~headers-jump-to-maildir "/personal/inbox"))
-
-  (global-set-key (kbd "C-c m") 'hrs/visit-inbox)
-#+END_SRC
-
-Open my inbox and sent messages folders with =J-i= and =J-s=, respectively.
-These are the only two folders I visit regularly enough to warrant shortcuts.
-
-#+BEGIN_SRC emacs-lisp
-  (setq mu4e-maildir-shortcuts '(("/personal/inbox" . ?i)
-                                 ("/personal/sent" . ?s)))
-#+END_SRC
-
-=mu4e= starts approximately instantaneously, so I don't know why I'd want to
-reconsider quitting it.
-
-#+BEGIN_SRC emacs-lisp
-  (setq mu4e-confirm-quit nil)
-#+END_SRC
-
-** Composing a new message
-
-When I'm composing a new email, default to using the first context.
-
-#+BEGIN_SRC emacs-lisp
-  (setq mu4e-compose-context-policy 'pick-first)
-#+END_SRC
-
-Compose new messages (as with =C-x m=) using =mu4e-user-agent=.
-
-#+BEGIN_SRC emacs-lisp
-  (setq mail-user-agent 'mu4e-user-agent)
-#+END_SRC
-
-Enable Org-style tables and list manipulation.
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'message-mode-hook 'turn-on-orgtbl)
-  (add-hook 'message-mode-hook 'turn-on-orgstruct++)
-#+END_SRC
-
-Once I've sent an email, kill the associated buffer instead of just burying it.
-
-#+BEGIN_SRC emacs-lisp
-  (setq message-kill-buffer-on-exit t)
-#+END_SRC
-
-** Reading an email
-
-Display the sender's email address along with their name.
-
-#+BEGIN_SRC emacs-lisp
-  (setq mu4e-view-show-addresses t)
-#+END_SRC
-
-Save attachments in my =~/downloads= directory, not my home directory.
-
-#+BEGIN_SRC emacs-lisp
-  (setq mu4e-attachment-dir "~/downloads")
-#+END_SRC
-
-Hit =C-c C-o= to open a URL in the browser.
-
-#+BEGIN_SRC emacs-lisp
-  (define-key mu4e-view-mode-map (kbd "C-c C-o") 'mu4e~view-browse-url-from-binding)
-#+END_SRC
-
-While HTML emails are undeniably sinful, we often have to read them. That's
-sometimes best done in a browser. This effectively binds =a h= to open the
-current email in my default Web browser.
-
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'mu4e-view-actions '("html in browser" . mu4e-action-view-in-browser) t)
-#+END_SRC
-
-** Encryption
-
-If a message is encrypted, my reply should always be encrypted, too.
-
-#+BEGIN_SRC emacs-lisp
-  (defun hrs/encrypt-responses ()
-    (let ((msg mu4e-compose-parent-message))
-      (when msg
-        (when (member 'encrypted (mu4e-message-field msg :flags))
-          (mml-secure-message-encrypt-pgpmime)))))
-
-  (add-hook 'mu4e-compose-mode-hook 'hrs/encrypt-responses)
-#+END_SRC
-
-** Sending mail over SMTP
-
-I send my email through =msmtp=. It's very fast, and I've already got it
-configured from using =mutt=. These settings describe how to send a message:
-
-- Use a sendmail program instead of sending directly from Emacs,
-- Tell =msmtp= to infer the correct account from the =From:= address,
-- Don't add a "=-f username=" flag to the =msmtp= command, and
-- Use =/usr/bin/msmtp=!
-
-#+BEGIN_SRC emacs-lisp
-  (setq message-send-mail-function 'message-send-mail-with-sendmail)
-  (setq message-sendmail-extra-arguments '("--read-envelope-from"))
-  (setq message-sendmail-f-is-evil 't)
-  (setq sendmail-program "msmtp")
-#+END_SRC
-
-** Org integration
-
-=org-mu4e= lets me store links to emails. I use this to reference emails in my
-TODO list while keeping my inbox empty.
-
-#+BEGIN_SRC emacs-lisp
-  (require 'org-mu4e)
-#+END_SRC
-
-When storing a link to a message in the headers view, link to the message
-instead of the search that resulted in that view.
-
-#+BEGIN_SRC emacs-lisp
-  (setq org-mu4e-link-query-in-headers-mode nil)
-#+END_SRC
-
-** Configure BBDB with mu4e
-
-Use BBDB to handle my address book.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package bbdb)
-  (require 'bbdb-mu4e)
-#+END_SRC
-
-Don't try to do address completion with mu4e. Use BBDB instead:
-
-#+BEGIN_SRC emacs-lisp
-  (setq mu4e-compose-complete-addresses nil)
-#+END_SRC
-
 * RSS with =elfeed=
 
 Install elfeed:
@@ -2088,38 +1817,6 @@ at the correct indentation for Python).
   (setq yas/indent-line nil)
 #+END_SRC
 
-** Configure =ivy= and =counsel=
-
-I use =ivy= and =counsel= as my completion framework.
-
-This configuration:
-
-- Uses =counsel-M-x= for command completion,
-- Replaces =isearch= with =swiper=,
-- Uses =smex= to maintain history,
-- Enables fuzzy matching everywhere except swiper (where it's thoroughly
-  unhelpful), and
-- Includes recent files in the switch buffer.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package counsel
-    :bind
-    ("M-x" . 'counsel-M-x)
-    ("C-s" . 'swiper)
-
-    :config
-    (use-package flx)
-    (use-package smex)
-
-    (ivy-mode 1)
-    (setq ivy-use-virtual-buffers t)
-    (setq ivy-count-format "(%d/%d) ")
-    (setq ivy-initial-inputs-alist nil)
-    (setq ivy-re-builders-alist
-          '((swiper . ivy--regex-plus)
-            (t . ivy--regex-fuzzy))))
-#+END_SRC
-
 ** Switch and rebalance windows when splitting
 
 When splitting a window, I invariably want to switch to the new window. This
@@ -2225,7 +1922,7 @@ Remap when working in terminal Emacs.
 * Extra
 
 #+BEGIN_SRC emacs-lisp
-  (load-file "~/.dotfiles/.emacs-private.el")
+  (load-file "c:\\users\\guoweishieh\\dotfiles\\.emacs-private.el")
 #+END_SRC
 
 * CCLS
