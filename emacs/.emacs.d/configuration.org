@@ -2258,6 +2258,16 @@ copied from [[http://tleyden.github.io/blog/2014/05/22/configure-emacs-as-a-go-e
   )
 (add-hook 'go-mode-hook 'my-go-mode-hook)
 #+END_SRC
+
+copief from https://github.com/weijiangan/flycheck-golangci-lint
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck-golangci-lint
+  :ensure t
+  :hook (go-mode . flycheck-golangci-lint-setup))
+
+(setenv "GO111MODULE" "on")
+
+#+END_SRC
 * JS2 mode
 
 following [[https://emacs.cafe/emacs/javascript/setup/2017/04/23/emacs-setup-javascript.html][this page]]

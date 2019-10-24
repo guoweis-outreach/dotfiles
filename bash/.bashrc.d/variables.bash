@@ -1,7 +1,7 @@
 source $HOME/.bin/git-completion.sh
 
 export ALTERNATE_EDITOR=""
-export BROWSER="firefox"
+export BROWSER="chrome"
 export EDITOR="$HOME/.bin/em"
 export EMAIL="guoweis@gmail.com"
 export GOPATH="$HOME/code/go"
@@ -24,3 +24,5 @@ chruby 2.5.3
 if [ -e $HOME/.bashrc.local ]; then
   source $HOME/.bashrc.local
 fi
+
+export GOPRIVATE=github.com/getoutreach/*

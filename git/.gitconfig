@@ -47,3 +47,7 @@
 	user = hrs
 [gpg]
 	program = gpg
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[url "git@github.com-guoweis:"]
+	insteadOf = https://github.com/
