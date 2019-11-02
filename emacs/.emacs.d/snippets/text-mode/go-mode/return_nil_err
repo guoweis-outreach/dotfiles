@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: return nil and error
+# key: rne
+# --
+
+return nil, trace.SetCallError(ctx, err)

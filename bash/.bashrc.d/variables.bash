@@ -25,4 +25,6 @@ if [ -e $HOME/.bashrc.local ]; then
   source $HOME/.bashrc.local
 fi
 
+### Outreach
 export GOPRIVATE=github.com/getoutreach/*
+export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/

@@ -18,9 +18,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-export-with-sub-superscripts nil)
  '(package-selected-packages
    (quote
-    (ssh quickrun kubernetes github-review go-rename go-dlv gist polymode flycheck-golangci-lint dap-mode gotest typescript-mode js-format protobuf-mode graphql-mode graphql docker exec-path-from-shell prettier-js omnisharp xref-js2 js2-refactor js2-mode restclient ox-pandoc ox-twbs ccls company-lsp lsp-ui lsp-mode yard-mode yaml-mode which-key wgrep web-mode use-package synosaurus solarized-theme smex slim-mode scss-mode scala-mode sbt-mode ruby-end rspec-mode rainbow-delimiters python-mode py-autopep8 projectile-rails paredit org-bullets multi-term moody minions instapaper helpful haskell-mode haml-mode graphviz-dot-mode go-errcheck gnuplot forge flycheck-package flx evil-surround evil-org evil-mu4e evil-magit engine-mode elpy elfeed-org dumb-jump dired-open dired-hide-dotfiles diff-hl deft counsel company-jedi company-go company-coq coffee-mode chruby bbdb auto-compile ag))))
+    (dot-mode babel plantuml-mode ssh quickrun kubernetes github-review go-rename go-dlv gist polymode flycheck-golangci-lint dap-mode gotest typescript-mode js-format protobuf-mode graphql-mode graphql docker exec-path-from-shell prettier-js omnisharp xref-js2 js2-refactor js2-mode restclient ox-pandoc ox-twbs ccls company-lsp lsp-ui lsp-mode yard-mode yaml-mode which-key wgrep web-mode use-package synosaurus solarized-theme smex slim-mode scss-mode scala-mode sbt-mode ruby-end rspec-mode rainbow-delimiters python-mode py-autopep8 projectile-rails paredit org-bullets multi-term moody minions instapaper helpful haskell-mode haml-mode graphviz-dot-mode go-errcheck gnuplot forge flycheck-package flx evil-surround evil-org evil-mu4e evil-magit engine-mode elpy elfeed-org dumb-jump dired-open dired-hide-dotfiles diff-hl deft counsel company-jedi company-go company-coq coffee-mode chruby bbdb auto-compile ag))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

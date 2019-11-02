@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: check err and return
+# key: checkerr
+# --
+if err != nil {
+	return nil, trace.SetCallError(ctx, err)
+}

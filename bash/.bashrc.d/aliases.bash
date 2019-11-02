@@ -40,12 +40,13 @@ alias oports="echo 'User:      Command:   Port:'; echo '------------------------
 alias serve="python -m SimpleHTTPServer"
 alias air='~/.air -c .air.conf'
 
+# alias gcb='git checkout -b '
 alias gbc='git checkout -b '
-alias gb='git checkout '
+alias gc='git checkout '
 alias gbd='git branch -d '
-alias gbl='git branch'
-alias gco='git checkout'
+alias gb='git branch'
+alias gbD='git branch -D '
 
 alias guc='git reset --soft HEAD^'
-alias gc='git commit -a -m '
+alias gm='git commit -a -m '
 alias gs='git status'

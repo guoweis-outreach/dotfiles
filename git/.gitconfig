@@ -40,8 +40,8 @@
 [rebase]
   autosquash = true
 [user]
-  name = Guowei Shieh
-  email = guoweis@gmail.com
+	name = guowei shieh
+	email = guowei.shieh@outreach.io
   signingkey = 25AE721B
 [github]
 	user = hrs
