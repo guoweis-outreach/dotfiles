@@ -1,6 +1,7 @@
 # -*- mode: snippet -*-
-# name: gfbeg
-# key: gfbeg
+# name: fbeg
+# key: fbeg
+
 # --
-  	ctx = trace.StartCall(ctx, "$1", log.F{"token.id": id})
-  	defer trace.End(ctx)
+ctx = trace.StartCall(ctx, "$1", log.F{"token.id": id})
+defer trace.EndCall(ctx)

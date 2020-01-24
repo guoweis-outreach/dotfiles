@@ -27,7 +27,12 @@ usage() {
 
 ### Ruby/Rails-specific
 alias be="bundle exec"
+alias ber="bundle exec rails"
+alias bek="bundle exec rake"
 alias migrate="be rake db:migrate db:test:prepare"
+alias k=kubectl
+
+
 
 ### Package management
 alias agi="sudo apt install"
@@ -50,3 +55,4 @@ alias gbD='git branch -D '
 alias guc='git reset --soft HEAD^'
 alias gm='git commit -a -m '
 alias gs='git status'
+alias json_escape="python -c 'import json,sys; print json.dumps(sys.stdin.read())'"

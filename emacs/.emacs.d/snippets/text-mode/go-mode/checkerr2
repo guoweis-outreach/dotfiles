@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: checkerr2
+# key: checkerr2
+# --
+	if err != nil {
+		fmt.Print(err)
+		return
+	}

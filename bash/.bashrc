@@ -6,3 +6,24 @@ source ~/.bashrc.d/prompt.bash
 source ~/.bashrc.d/utils.bash
 
 source ~/.bashrc.local
+
+# Outreach
+source $HOME/.asdf/asdf.sh
+source $OUTREACH_PROJECT_ROOT/dev-environment/voice/setup
+
+if type brew &>/dev/null; then
+  HOMEBREW_PREFIX="$(brew --prefix)"
+  if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
+    source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+  else
+    for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
+      [[ -r "$COMPLETION" ]] && source "$COMPLETION"
+    done
+  fi
+fi
+
+# this line must be after the block above
+source <(kubectl completion bash)
+complete -C /usr/local/bin/kustomize kustomize
+
+# find . -type f -name "*.go" | xargs sed -i '' 's/nolint:/nolint:gocritic,/g'

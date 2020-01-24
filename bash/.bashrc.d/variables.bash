@@ -28,3 +28,4 @@ fi
 ### Outreach
 export GOPRIVATE=github.com/getoutreach/*
 export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
+export OUTREACH_PROJECT_ROOT="$HOME/code/getoutreach"
