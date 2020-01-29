@@ -20,5 +20,6 @@ pathmunge $HOME/.local/bin after
 pathmunge $GOPATH/bin after
 pathmunge /usr/local/share/dotnet
 pathmunge $HOME/.asdf/shims
+pathmunge $HOME/binaries/google-cloud-sdk/bin
 
 export PATH
