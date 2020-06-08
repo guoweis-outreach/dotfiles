@@ -32,8 +32,6 @@ alias bek="bundle exec rake"
 alias migrate="be rake db:migrate db:test:prepare"
 alias k=kubectl
 
-
-
 ### Package management
 alias agi="sudo apt install"
 alias agr="sudo apt remove"
@@ -53,6 +51,23 @@ alias gb='git branch'
 alias gbD='git branch -D '
 
 alias guc='git reset --soft HEAD^'
-alias gm='git commit -a -m '
+alias gm='git commit -m '
+alias gam='git commit -a -m '
 alias gs='git status'
 alias json_escape="python -c 'import json,sys; print json.dumps(sys.stdin.read())'"
+
+# graphql
+alias gqlt='yarn generate-graphql-types'
+alias gqlp='yarn pretty-fix'
+alias gqll='yarn lint-fix'
+
+alias kp='kubectl -n private'
+alias kr='kubectl -n rolling'
+alias ks='kubectl -n staging'
+alias kb='kubectl -n bento1a'
+
+
+alias kx='kubectl ctx'
+alias kn='kubectl ns'
+
+alias tempkr='k run curl-guoweis --image=radial/busyboxplus:curl -it --rm'

@@ -27,3 +27,8 @@ source <(kubectl completion bash)
 complete -C /usr/local/bin/kustomize kustomize
 
 # find . -type f -name "*.go" | xargs sed -i '' 's/nolint:/nolint:gocritic,/g'
+
+source "/usr/local/opt/kube-ps1/share/kube-ps1.sh"
+PS1='$(kube_ps1)'$PS1
+
+export PATH="$HOME/.poetry/bin:$PATH"
