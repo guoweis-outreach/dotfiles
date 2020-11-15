@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: loge
+# key: loge
+# --
+   log.Error(ctx, "$1 failed", events.NewErrorInfo(err))

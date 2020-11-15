@@ -548,60 +548,6 @@ output.
   (setq compilation-scroll-output t)
 #+END_SRC
 
-** Coq
-
-I use =company-coq-mode=, which really helps make Proof General a more useful IDE.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package company-coq)
-#+END_SRC
-
-I bind the right and left arrow keys to evaluating and retracting the next and
-previous statements. This is more convenient than the default bindings of =C-c
-C-n= and =C-c C-u=.
-
-I also like to disable =abbrev-mode=; it has a ton of abbreviations for Coq, but
-they've always been unpleasant surprises for me.
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'coq-mode-hook
-            (lambda ()
-              (company-coq-mode)
-              (evil-define-key 'normal coq-mode-map (kbd "<down>") 'proof-assert-next-command-interactive)
-              (evil-define-key 'normal coq-mode-map (kbd "<up>") 'proof-undo-last-successful-command)
-              (evil-define-key 'normal coq-mode-map (kbd "<return>") 'company-coq-proof-goto-point)
-              (abbrev-mode 0)))
-#+END_SRC
-
-The default Proof General layout stacks the code, goal, and response buffers on
-top of each other. I like to keep my code on one side and my goal and response
-buffers on the other.
-
-#+BEGIN_SRC emacs-lisp
-  (setq proof-three-window-mode-policy 'hybrid)
-#+END_SRC
-
-Don't move point when asserting and undoing proof commands.
-
-#+BEGIN_SRC emacs-lisp
-  (setq proof-follow-mode 'ignore)
-#+END_SRC
-
-The Proof General splash screen's pretty cute, but I don't need to see it every
-time.
-
-#+BEGIN_SRC emacs-lisp
-  (setq proof-splash-enable nil)
-#+END_SRC
-
-Proof General usually evaluates each comment individually. In literate programs,
-this can result in evaluating a /ton/ of comments. This evaluates a series of
-consecutive comments as a single comment.
-
-#+BEGIN_SRC emacs-lisp
-  (setq proof-script-fly-past-comments t)
-#+END_SRC
-
 ** CSS, Sass, and Less
 
 Indent by 2 spaces.
@@ -1124,12 +1070,12 @@ Quickly insert a block of elisp:
 
 ** Task and org-capture management
 
-Store my org files in =~/documents/org=, maintain an inbox in Dropbox, define
+Store my org files in =~/Documents/org=, maintain an inbox in Dropbox, define
 the location of an index file (my main todo list), and archive finished tasks in
-=~/documents/org/archive.org=.
+=~/Documents/org/archive.org=.
 
 #+BEGIN_SRC emacs-lisp
-  (setq org-directory "~/documents/org")
+  (setq org-directory "~/Documents/org")
 
   (defun org-file-path (filename)
     "Return the absolute address of an org file, given its relative name."
@@ -1155,7 +1101,7 @@ them easily from that inbox file to my index.
         (delete-file org-inbox-file))))
 #+END_SRC
 
-I store all my todos in =~/documents/org/index.org=, so I'd like to derive my
+I store all my todos in =~/Documents/org/index.org=, so I'd like to derive my
 agenda from there.
 
 #+BEGIN_SRC emacs-lisp
@@ -1185,15 +1131,15 @@ Record the time that a todo was archived.
 
 Define a few common tasks as capture templates. Specifically, I frequently:
 
-- Record ideas for future blog posts in =~/documents/notes/blog-ideas.org=,
-- Maintain a todo list in =~/documents/org/index.org=.
+- Record ideas for future blog posts in =~/Documents/notes/blog-ideas.org=,
+- Maintain a todo list in =~/Documents/org/index.org=.
 - Convert emails into todos to maintain an empty inbox.
 
 #+BEGIN_SRC emacs-lisp
   (setq org-capture-templates
         '(("b" "Blog idea"
            entry
-           (file "~/documents/notes/blog-ideas.org")
+           (file "~/Documents/notes/blog-ideas.org")
            "* %?\n")
 
           ("e" "Email" entry
@@ -1201,7 +1147,7 @@ Define a few common tasks as capture templates. Specifically, I frequently:
            "* TODO %?\n\n%a\n\n")
 
           ("f" "Finished book"
-           table-line (file "~/documents/notes/books-read.org")
+           table-line (file "~/Documents/notes/books-read.org")
            "| %^{Title} | %^{Author} | %u |")
 
           ("r" "Reading"
@@ -1210,7 +1156,7 @@ Define a few common tasks as capture templates. Specifically, I frequently:
 
           ("s" "Subscribe to an RSS feed"
            plain
-           (file "~/documents/rss/urls")
+           (file "~/Documents/rss/urls")
            "%^{Feed URL} \"~%^{Feed name}\"")
 
           ("t" "Todo"
@@ -1416,7 +1362,7 @@ and creates a new post (with a timestamped and slugged file name) in the blog's
 =_posts/= directory. The new post includes appropriate YAML header information.
 
 #+BEGIN_SRC emacs-lisp
-  (defvar hrs/jekyll-posts-directory "~/documents/blog/_posts/")
+  (defvar hrs/jekyll-posts-directory "~/Documents/blog/_posts/")
   (defvar hrs/jekyll-post-extension ".md")
 
   (defun hrs/replace-whitespace-with-hyphens (s)
@@ -1481,7 +1427,7 @@ This selects and inserts a tag:
 #+BEGIN_SRC emacs-lisp
   (defun hrs/existing-blog-tags ()
     "Return a list of all the tags currently used in my blog."
-    (split-string (shell-command-to-string "cd ~/documents/blog && rake tags")))
+    (split-string (shell-command-to-string "cd ~/Documents/blog && rake tags")))
 
   (defun hrs/insert-blog-tag ()
     "Select one of the current tags and insert it at point."
@@ -1505,7 +1451,7 @@ it.
 
   (defun hrs/today-checklist-filename ()
     "The filename of today's checklist."
-    (concat "/home/hrs/documents/checklists/daily-checklist-" (format-time-string "%Y-%m-%d") ".org"))
+    (concat "/Users/guoweishieh/Documents/checklists/daily-checklist-" (format-time-string "%Y-%m-%d") ".org"))
 
   (defun hrs/today ()
     "Take a look at today's checklist."
@@ -1529,223 +1475,6 @@ Open the checklist and my TODO list side-by-side:
     (hrs/open-index-file))
 
   (global-set-key (kbd "C-c d") 'hrs/dashboard)
-#+END_SRC
-
-* Email with =mu4e=
-
-Add mu4e to path
-#+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu/mu4e")
-#+END_SRC
-
-Use the =evil= bindings for navigation. They're very similar to the =mutt=
-bindings, which matches my muscle memory nicely. =)
-
-#+BEGIN_SRC emacs-lisp
-  (use-package evil-mu4e)
-  (require 'evil-mu4e)
-#+END_SRC
-
-** Where's my mail? Who am I?
-
-I keep my mail in =~/.mail=. The default maildir would be =~/Maildir=, but I'd
-rather hide it; I don't poke around in there manually very often.
-
-This setting matches the paths in my =mbsync= configuration.
-
-#+BEGIN_SRC emacs-lisp
-  (setq mu4e-maildir "~/.mail")
-#+END_SRC
-
-I only have one context at the moment. If I had another email account, though,
-I'd define it in here with an additional =make-mu4e-context= block.
-
-My full name is defined earlier in this configuration file.
-
-#+BEGIN_SRC emacs-lisp
-  (setq mu4e-contexts
-        `(,(make-mu4e-context
-            :name "personal"
-            :match-func (lambda (msg)
-                          (when msg
-                            (string-prefix-p "/personal" (mu4e-message-field msg :maildir))))
-            :vars '((user-mail-address . "guoweis@gmail.com")
-                    (mu4e-trash-folder . "/personal/archive")
-                    (mu4e-refile-folder . "/personal/archive")
-                    (mu4e-sent-folder . "/personal/sent")
-                    (mu4e-drafts-folder . "/personal/drafts")))))
-#+END_SRC
-
-** Fetching new mail
-
-I fetch my email with =mbsync=. I've also bound "o" to fetch new mail.
-
-#+BEGIN_SRC emacs-lisp
-  (setq mu4e-get-mail-command "killall --quiet mbsync; mbsync inboxes")
-
-  (define-key mu4e-headers-mode-map (kbd "o") 'mu4e-update-mail-and-index)
-#+END_SRC
-
-Rename files when moving them between directories. =mbsync= supposedly prefers
-this; I'm cargo-culting.
-
-#+BEGIN_SRC emacs-lisp
-  (setq mu4e-change-filenames-when-moving t)
-#+END_SRC
-
-Poll the server for new mail every 5 minutes.
-
-#+BEGIN_SRC emacs-lisp
-  (setq mu4e-update-interval 300)
-#+END_SRC
-
-** Viewing mail
-
-I check my email pretty often! Probably more than I should. This binds =C-c m=
-to close any other windows and open my personal inbox.
-
-In practice, I keep an =*mu4e-headers*= buffer in its own frame, full-screen, on
-a dedicated =i3= workspace.
-
-#+BEGIN_SRC emacs-lisp
-  (defun hrs/visit-inbox ()
-    (interactive)
-    (delete-other-windows)
-    (mu4e~headers-jump-to-maildir "/personal/inbox"))
-
-  (global-set-key (kbd "C-c m") 'hrs/visit-inbox)
-#+END_SRC
-
-Open my inbox and sent messages folders with =J-i= and =J-s=, respectively.
-These are the only two folders I visit regularly enough to warrant shortcuts.
-
-#+BEGIN_SRC emacs-lisp
-  (setq mu4e-maildir-shortcuts '(("/personal/inbox" . ?i)
-                                 ("/personal/sent" . ?s)))
-#+END_SRC
-
-=mu4e= starts approximately instantaneously, so I don't know why I'd want to
-reconsider quitting it.
-
-#+BEGIN_SRC emacs-lisp
-  (setq mu4e-confirm-quit nil)
-#+END_SRC
-
-** Composing a new message
-
-When I'm composing a new email, default to using the first context.
-
-#+BEGIN_SRC emacs-lisp
-  (setq mu4e-compose-context-policy 'pick-first)
-#+END_SRC
-
-Compose new messages (as with =C-x m=) using =mu4e-user-agent=.
-
-#+BEGIN_SRC emacs-lisp
-  (setq mail-user-agent 'mu4e-user-agent)
-#+END_SRC
-
-Enable Org-style tables and list manipulation.
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'message-mode-hook 'turn-on-orgtbl)
-  (add-hook 'message-mode-hook 'turn-on-orgstruct++)
-#+END_SRC
-
-Once I've sent an email, kill the associated buffer instead of just burying it.
-
-#+BEGIN_SRC emacs-lisp
-  (setq message-kill-buffer-on-exit t)
-#+END_SRC
-
-** Reading an email
-
-Display the sender's email address along with their name.
-
-#+BEGIN_SRC emacs-lisp
-  (setq mu4e-view-show-addresses t)
-#+END_SRC
-
-Save attachments in my =~/downloads= directory, not my home directory.
-
-#+BEGIN_SRC emacs-lisp
-  (setq mu4e-attachment-dir "~/downloads")
-#+END_SRC
-
-Hit =C-c C-o= to open a URL in the browser.
-
-#+BEGIN_SRC emacs-lisp
-  (define-key mu4e-view-mode-map (kbd "C-c C-o") 'mu4e~view-browse-url-from-binding)
-#+END_SRC
-
-While HTML emails are undeniably sinful, we often have to read them. That's
-sometimes best done in a browser. This effectively binds =a h= to open the
-current email in my default Web browser.
-
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'mu4e-view-actions '("html in browser" . mu4e-action-view-in-browser) t)
-#+END_SRC
-
-** Encryption
-
-If a message is encrypted, my reply should always be encrypted, too.
-
-#+BEGIN_SRC emacs-lisp
-  (defun hrs/encrypt-responses ()
-    (let ((msg mu4e-compose-parent-message))
-      (when msg
-        (when (member 'encrypted (mu4e-message-field msg :flags))
-          (mml-secure-message-encrypt-pgpmime)))))
-
-  (add-hook 'mu4e-compose-mode-hook 'hrs/encrypt-responses)
-#+END_SRC
-
-** Sending mail over SMTP
-
-I send my email through =msmtp=. It's very fast, and I've already got it
-configured from using =mutt=. These settings describe how to send a message:
-
-- Use a sendmail program instead of sending directly from Emacs,
-- Tell =msmtp= to infer the correct account from the =From:= address,
-- Don't add a "=-f username=" flag to the =msmtp= command, and
-- Use =/usr/bin/msmtp=!
-
-#+BEGIN_SRC emacs-lisp
-  (setq message-send-mail-function 'message-send-mail-with-sendmail)
-  (setq message-sendmail-extra-arguments '("--read-envelope-from"))
-  (setq message-sendmail-f-is-evil 't)
-  (setq sendmail-program "msmtp")
-#+END_SRC
-
-** Org integration
-
-=org-mu4e= lets me store links to emails. I use this to reference emails in my
-TODO list while keeping my inbox empty.
-
-#+BEGIN_SRC emacs-lisp
-  (require 'org-mu4e)
-#+END_SRC
-
-When storing a link to a message in the headers view, link to the message
-instead of the search that resulted in that view.
-
-#+BEGIN_SRC emacs-lisp
-  (setq org-mu4e-link-query-in-headers-mode nil)
-#+END_SRC
-
-** Configure BBDB with mu4e
-
-Use BBDB to handle my address book.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package bbdb)
-  (require 'bbdb-mu4e)
-#+END_SRC
-
-Don't try to do address completion with mu4e. Use BBDB instead:
-
-#+BEGIN_SRC emacs-lisp
-  (setq mu4e-compose-complete-addresses nil)
 #+END_SRC
 
 * RSS with =elfeed=
@@ -1914,7 +1643,7 @@ Use flycheck in the appropriate buffers:
     :commands (deft)
     :config
 
-    (setq deft-directory "~/documents/notes"
+    (setq deft-directory "~/Documents/notes"
           deft-recursive t
           deft-use-filename-as-title t)
 
@@ -2273,55 +2002,55 @@ copief from https://github.com/weijiangan/flycheck-golangci-lint
 (setenv "GO111MODULE" "on")
 
 #+END_SRC
-* JS2 mode
+# * JS2 mode
 
-following [[https://emacs.cafe/emacs/javascript/setup/2017/04/23/emacs-setup-javascript.html][this page]]
-#+BEGIN_SRC emacs_lisp
-(require 'js2-mode)
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+# following [[https://emacs.cafe/emacs/javascript/setup/2017/04/23/emacs-setup-javascript.html][this page]]
+# #+BEGIN_SRC emacs_lisp
+# (require 'js2-mode)
+# (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
-;; Better imenu
-(add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
+# ;; Better imenu
+# (add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
 
-(require 'js2-refactor)
-(require 'xref-js2)
+# (require 'js2-refactor)
+# (require 'xref-js2)
 
-(add-hook 'js2-mode-hook #'js2-refactor-mode)
-(js2r-add-keybindings-with-prefix "C-c C-r")
-(define-key js2-mode-map (kbd "C-k") #'js2r-kill)
+# (add-hook 'js2-mode-hook #'js2-refactor-mode)
+# (js2r-add-keybindings-with-prefix "C-c C-r")
+# (define-key js2-mode-map (kbd "C-k") #'js2r-kill)
 
-;; js-mode (which js2 is based on) binds "M-." which conflicts with xref, so
-;; unbind it.
-(define-key js-mode-map (kbd "M-.") nil)
+# ;; js-mode (which js2 is based on) binds "M-." which conflicts with xref, so
+# ;; unbind it.
+# (define-key js-mode-map (kbd "M-.") nil)
 
-(add-hook 'js2-mode-hook (lambda ()
-  (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
+# (add-hook 'js2-mode-hook (lambda ()
+#   (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
 
-(define-key js2-mode-map (kbd "C-k") #'js2r-kill)
+# (define-key js2-mode-map (kbd "C-k") #'js2r-kill)
 
-(add-hook 'js2-mode-hook 'prettier-js-mode)
-
-
-#+END_SRC
-
-* CSharp Mode
-
-Copied from [[https://joshwolfe.ca/post/emacs-for-csharp/][here]]
-
-#+BEGIN_SRC emacs_lisp
-(use-package omnisharp
-  :after company
-  :config
-  (add-hook 'csharp-mode-hook 'omnisharp-mode)
-  (add-to-list 'company-backends 'company-omnisharp))
-
-(define-key omnisharp-mode-map (kbd ".") 'omnisharp-add-dot-and-auto-complete)
-(define-key omnisharp-mode-map (kbd "<C-SPC>") 'omnisharp-auto-complete)
-(add-hook 'csharp-mode-hook 'flycheck-mode)
-(add-hook 'prog-mode-hook 'flycheck-mode)
+# (add-hook 'js2-mode-hook 'prettier-js-mode)
 
 
-#+END_SRC
+# #+END_SRC
+
+# * CSharp Mode
+
+# Copied from [[https://joshwolfe.ca/post/emacs-for-csharp/][here]]
+
+# #+BEGIN_SRC emacs_lisp
+# (use-package omnisharp
+#   :after company
+#   :config
+#   (add-hook 'csharp-mode-hook 'omnisharp-mode)
+#   (add-to-list 'company-backends 'company-omnisharp))
+
+# (define-key omnisharp-mode-map (kbd ".") 'omnisharp-add-dot-and-auto-complete)
+# (define-key omnisharp-mode-map (kbd "<C-SPC>") 'omnisharp-auto-complete)
+# (add-hook 'csharp-mode-hook 'flycheck-mode)
+# (add-hook 'prog-mode-hook 'flycheck-mode)
+
+
+# #+END_SRC
 * plantuml
 ;; active Org-babel languages
 (org-babel-do-load-languages

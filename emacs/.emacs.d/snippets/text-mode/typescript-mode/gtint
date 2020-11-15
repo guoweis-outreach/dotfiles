@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: gtint
+# key: gtint
+# --
+$\{GQLTypes.Int\}

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: lkerr
+# key: lkerr
+# --
+if err != nil {
+    log.Error(ctx, "$1 failed", events.NewErrorInfo(err))
+    return
+  }

@@ -3,5 +3,5 @@
 # key: fbeg
 
 # --
-ctx = trace.StartCall(ctx, "$1", log.F{"token.id": id})
+ctx = trace.StartCall(ctx, "$1")
 defer trace.EndCall(ctx)

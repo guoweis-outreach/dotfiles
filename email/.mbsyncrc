@@ -9,83 +9,23 @@ SyncState *
 IMAPAccount personal
 Host imap.gmail.com
 User guoweis@gmail.com
-PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/.authinfo.gpg | awk '/machine imap.gmail.com login guoweis@gmail.com/ {print $NF}'"
+PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/.dotfiles/email/.mbsyncpass.gpg"
 SSLType IMAPS
-CertificateFile ~/.mutt/ca-bundle.crt
+CertificateFile /usr/local/etc/openssl/cert.pem
 AuthMechs LOGIN
 
 IMAPStore personal-remote
 Account personal
 
 MaildirStore personal-local
-Path ~/.mail/personal/
-Inbox ~/.mail/personal/inbox
+Path ~/email/mbsyncmail/
+Inbox ~/email/mbsyncmail/INBOX
 
-Channel personal-inbox
-Master :personal-remote:INBOX
-Slave :personal-local:inbox
-
-Channel personal-archive
-Master :personal-remote:INBOX/Archive
-Slave :personal-local:archive
-
-Channel personal-drafts
-Master :personal-remote:INBOX/Drafts
-Slave :personal-local:drafts
-
-Channel personal-sent
-Master ":personal-remote:INBOX/Sent Items"
-Slave :personal-local:sent
-
-Group personal
-Channel personal-inbox
-Channel personal-drafts
-Channel personal-sent
-Channel personal-archive
-
-Group inboxes
-Channel personal-inbox
-
-########################################
-# Work
-########################################
-
-IMAPAccount work
-Host imap.gmail.com
-User guowei.shieh@outreach.io
-PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/.authinfo.work.gpg | awk '/machine imap.gmail.com login guowei.shieh@outreach.io/ {print $NF}'"
-SSLType IMAPS
-CertificateFile ~/.mutt/ca-bundle.crt
-AuthMechs LOGIN
-
-IMAPStore work-remote
-Account work
-
-MaildirStore work-local
-Path ~/.mail/work/
-Inbox ~/.mail/work/inbox
-
-Channel work-inbox
-Master :work-remote:INBOX
-Slave :work-local:inbox
-
-Channel work-archive
-Master :work-remote:INBOX/Archive
-Slave :work-local:archive
-
-Channel work-drafts
-Master :work-remote:INBOX/Drafts
-Slave :work-local:drafts
-
-Channel work-sent
-Master ":work-remote:INBOX/Sent Items"
-Slave :work-local:sent
-
-Group work
-Channel work-inbox
-Channel work-drafts
-Channel work-sent
-Channel work-archive
-
-Group inboxes
-Channel work-inbox
+Channel personal
+Master :personal-remote:
+Slave :personal-local:
+Patterns "Sent Items" "INBOX" "Deleted Items"
+Create Slave
+Sync All
+Expunge Both
+SyncState *

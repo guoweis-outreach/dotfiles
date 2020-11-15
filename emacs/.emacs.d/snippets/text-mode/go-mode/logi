@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: logi
+# key: logi
+# --
+log.Info(ctx, "$1")

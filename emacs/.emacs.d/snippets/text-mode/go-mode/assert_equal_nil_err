@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: aene
+# key: aene
+# --
+assert.Equal(t, nil, err)

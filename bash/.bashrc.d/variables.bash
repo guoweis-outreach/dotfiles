@@ -29,3 +29,6 @@ fi
 export GOPRIVATE=github.com/getoutreach/*
 export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
 export OUTREACH_PROJECT_ROOT="$HOME/code/getoutreach"
+
+export VAULT_ADDR=https://vault.outreach.cloud
+export KUBECONFIG="$HOME/.kube/config:$HOME/.outreach/kubeconfig.yaml"

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: ptv
+# key: ptv
+# --
+log.F{"value": fmt.Sprintf("%+v", $1), "type": fmt.Sprintf("%T", $1)}

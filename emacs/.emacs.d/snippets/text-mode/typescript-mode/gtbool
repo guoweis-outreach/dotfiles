@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: gtbool
+# key: gtbool
+# --
+${GQLTypes.Boolean}

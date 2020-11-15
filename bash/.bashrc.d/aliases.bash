@@ -67,7 +67,21 @@ alias ks='kubectl -n staging'
 alias kb='kubectl -n bento1a'
 
 
+
+alias dk='dkn -n bento1a'
+alias dkn='devenv kubectl'
+alias dkds='dk describe'
 alias kx='kubectl ctx'
 alias kn='kubectl ns'
 
 alias tempkr='k run curl-guoweis --image=radial/busyboxplus:curl -it --rm'
+
+alias kds='k describe'
+alias kdl='k delete'
+
+alias alog='k logs $1 -c main'
+alias alint='argo lint deployments/workflow/asrmodel.yaml'
+alias arun='argo --namespace rolling submit --watch deployments/workflow/asrmodel.yaml'
+
+#A trailing space in VALUE causes the next word to be checked for alias substitution when the alias is expanded.
+alias watch='watch -n 5 '

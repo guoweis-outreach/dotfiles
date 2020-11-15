@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: fnew
+# key: fnew
+# --
+func ($1 *$2) $3(ctx context.Context, $4) ($5, error) {
+  ctx = trace.StartCall(ctx, "$2.$3")
+  defer trace.EndCall(ctx)
+
+}

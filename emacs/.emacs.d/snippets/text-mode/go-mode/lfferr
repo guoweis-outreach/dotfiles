@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: lfferr
+# key: lfferr
+# --
+log.F{"err": err.Error()}

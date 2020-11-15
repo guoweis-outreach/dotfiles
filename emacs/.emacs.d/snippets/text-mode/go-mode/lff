@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: lff
+# key: lff
+# --
+log.F{"$1": $2}

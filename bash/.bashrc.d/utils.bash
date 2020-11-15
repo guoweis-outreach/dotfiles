@@ -160,6 +160,14 @@ function syncm() {
   fi
 }
 
+function syncmd() {
+  local cur=`git branch --show-current`
+  syncm $*
+  if [[ $cur != "master" ]]; then
+    git branch -D $cur
+  fi
+}
+
 function gmpo() {
   gm $1
   local output=$(git push 2>&1)
@@ -252,8 +260,8 @@ function poweronaudreyvm {
 }
 
 function runapit {
-  local verifier=`kubectl -n $1 get pods | grep verifier | cut -d' ' -f1`
-  cat ~/code/getoutreach/meeting-verifier/tests/$2 | kubectl -n $1 exec -it $verifier -- /usr/local/bin/apitest -b -f -
+  local verifier=`kubectl get pods | grep verifier | cut -d' ' -f1`
+  cat ~/code/getoutreach/meeting-verifier/tests/$1 | kubectl exec -it $verifier -- /usr/local/bin/apitest -b -f -
 }
 
 function dn {
@@ -277,3 +285,30 @@ function aztlist {
 
 # egrep -lRZ 'rewrite' . | xargs sed -i '' '/rewrite/d'
 # egrep -lRZ 'internals' . | xargs sed -i '' "s/path: \/internals\/\(\.\*\)/path :\/internals/g"
+
+function reftpl {
+  pushd /Users/guoweishieh/code/getoutreach/asrpipeline/deployments/asrtool/base/templates
+  argo template delete $1
+  argo template create $1.yaml
+  popd
+}
+
+function killpods {
+  kubectl get pod | cut -d' ' -f1 | grep $1 | xargs kubectl delete pod
+}
+
+# rsync -a asrtool/ asrtool-tts/ --include \*/ --exclude \*
+
+function tlint {
+  argo template lint deployments/asrtool/base/templates/$1.yaml
+}
+
+function mbs {
+  mbsync -c ~/.dotfiles/email/.mbsyncrc personal
+}
+
+function batchrename {
+  for file in *.$1; do
+    mv "$file" "$(basename "$file" .$1).$2"
+  done
+}

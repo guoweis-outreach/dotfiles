@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: logf
+# key: logf
+# --
+log.Fatal(ctx, "$1 failed", log.F{"err": err.Error()})

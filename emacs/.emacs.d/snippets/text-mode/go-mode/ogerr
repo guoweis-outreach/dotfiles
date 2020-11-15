@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-# name: check err and return
-# key: ckerr
+# name: ogerr
+# key: ogerr
 # --
 if err != nil {
-    log.Error(ctx, "$1 failed")
+    log.Error(ctx, "$1 failed", events.NewErrorInfo(err))
 	  return nil, trace.SetCallError(ctx, err)
   }

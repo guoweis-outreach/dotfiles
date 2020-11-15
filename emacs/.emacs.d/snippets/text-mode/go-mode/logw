@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: logw
+# key: logw
+# --
+log.Warn(ctx, "$1")
